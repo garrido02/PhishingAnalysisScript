@@ -41,6 +41,6 @@ Se quiseres modificar o código ou correr num ambiente local (Windows, macOS, ou
 Clona o repositório e instala as bibliotecas necessárias:
 
 ```bash
-git clone [https://github.com/o-teu-utilizador/o-teu-repositorio.git](https://github.com/o-teu-utilizador/o-teu-repositorio.git)
-cd o-teu-repositorio
+git clone [https://github.com/garrido02/PhihingAnalysisScript.git](https://github.com/garrido02/PhihingAnalysisScript.git)
+cd PhihingAnalysisScript
 pip install pandas openpyxl pytest flake8
