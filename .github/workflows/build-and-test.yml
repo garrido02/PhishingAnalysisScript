@@ -21,7 +21,6 @@ jobs:
 
       - name: Install system dependencies (Tkinter)
         run: |
-          # O Ubuntu precisa do pacote nativo do Tkinter para não falhar nos imports
           sudo apt-get update
           sudo apt-get install -y python3-tk
 
@@ -32,17 +31,15 @@ jobs:
 
       - name: Lint with flake8
         run: |
-          # Verifica erros críticos de sintaxe
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
       - name: Run tests with pytest
         run: |
-          # Corre os testes. Se falhar, o workflow para aqui.
           pytest
 
   build:
     name: Build Windows Executable
-    needs: test # Garante que este job só arranca se o job 'test' passar a 100%
+    needs: test
     runs-on: windows-latest
     steps:
       - name: Checkout code
@@ -60,12 +57,20 @@ jobs:
 
       - name: Build executable with PyInstaller
         run: |
-          # A flag --windowed oculta a consola negra do Windows
-          # A flag --noconfirm sobrescreve ficheiros antigos automaticamente
           pyinstaller --noconfirm --onefile --windowed --name PhishingAnalytics physhing_analysis_exe_version.py
 
+      # Mantemos o Artifact para download temporário (opcional, podes apagar se quiseres só a Release)
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: PhishingAnalytics-Windows-EXE
           path: dist/PhishingAnalytics.exe
+
+      # Cria a Release AUTOMATICAMENTE a cada commit usando o número da execução
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Auto-Release Build ${{ github.run_number }}
+          files: dist/PhishingAnalytics.exe
+          generate_release_notes: true
