@@ -1,0 +1,71 @@
+name: Build and Test Phishing Analytics
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install system dependencies (Tkinter)
+        run: |
+          # O Ubuntu precisa do pacote nativo do Tkinter para não falhar nos imports
+          sudo apt-get update
+          sudo apt-get install -y python3-tk
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas openpyxl pytest flake8
+
+      - name: Lint with flake8
+        run: |
+          # Verifica erros críticos de sintaxe
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: Run tests with pytest
+        run: |
+          # Corre os testes. Se falhar, o workflow para aqui.
+          pytest
+
+  build:
+    name: Build Windows Executable
+    needs: test # Garante que este job só arranca se o job 'test' passar a 100%
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas openpyxl pyinstaller
+
+      - name: Build executable with PyInstaller
+        run: |
+          # A flag --windowed oculta a consola negra do Windows
+          # A flag --noconfirm sobrescreve ficheiros antigos automaticamente
+          pyinstaller --noconfirm --onefile --windowed --name PhishingAnalytics main.py
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PhishingAnalytics-Windows-EXE
+          path: dist/PhishingAnalytics.exe
