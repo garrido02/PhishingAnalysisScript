@@ -1,0 +1,72 @@
+PHISHING_HEADERS = (
+    "Email",
+    "Clicked At",
+    "Replied At",
+    "Data Entered At",
+    "Attachment Opened At",
+    "Macro Enabled At",
+    "QR Code Scanned At",
+    "Opened At",
+    "Scheduled",
+    "Delivered At",
+    "Bounced At",
+    "Bounce Code",
+    "Bounce Reason",
+    "Failure Ignored At",
+    "First Name",
+    "Last Name",
+    "Job Title",
+    "Group",
+    "Manager Name",
+    "Manage Email",
+    "Location",
+    "Division",
+    "Employee Numbers",
+    "IP Address",
+    "IP Location",
+    "Browser",
+    "Operating System",
+    "Email Template",
+    "Created At",
+    "Time Zone",
+    "Phone Number",
+    "Extension",
+    "Mobile Phone Number",
+    "Current PPP",
+    "Archived At",
+    "Risk Score",
+    "Locale",
+    "Organization",
+    "Department",
+    "Language",
+    "Comment",
+    "Employee Start Date",
+    "Custom Field 1",
+    "Training Language",
+    "Clicked At (UTC)",
+    "Replied At (UTC)",
+    "Data Entered At (UTC)",
+    "Attachment Opened At (UTC)",
+    "Macro Enabled At (UTC)",
+    "QR Code Scanned At (UTC)",
+    "Opened At (UTC)",
+    "Scheduled (UTC)",
+    "Delivered At (UTC)",
+    "Reported At (UTC)",
+    "Bounced At (UTC)",
+    "Failure Ignored At (UTC)",
+    "Created At (UTC)",
+    "Archived At (UTC)",
+    "Start Date (UTC)",
+)
+
+
+def banner():
+    BANNER = r"""
+ _____ ___ __  __ _____ ____ _____  _    __  __ ____  
+|_   _|_ _|  \/  | ____/ ___|_   _|/ \  |  \/  |  _ \ 
+  | |  | || |\/| |  _| \___ \ | | / _ \ | |\/| | |_) |
+  | |  | || |  | | |___ ___) || |/ ___ \| |  | |  __/ 
+  |_| |___|_|  |_|_____|____/ |_/_/   \_\_|  |_|_|    
+"""
+    print(BANNER)
