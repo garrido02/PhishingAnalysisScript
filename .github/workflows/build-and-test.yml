@@ -62,7 +62,7 @@ jobs:
         run: |
           # A flag --windowed oculta a consola negra do Windows
           # A flag --noconfirm sobrescreve ficheiros antigos automaticamente
-          pyinstaller --noconfirm --onefile --windowed --name PhishingAnalytics main.py
+          pyinstaller --noconfirm --onefile --windowed --name PhishingAnalytics physhing_analysis_exe_version.py
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
